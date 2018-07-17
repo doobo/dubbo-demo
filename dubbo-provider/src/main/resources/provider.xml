@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://code.alibabatech.com/schema/dubbo
+       http://code.alibabatech.com/schema/dubbo/dubbo.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <context:component-scan base-package="vip.ipav.dubbo.config"></context:component-scan>
+    <!--配置中心-->
+    <context:property-placeholder location="classpath:xxl-conf.properties"/>
+    <!--定义了提供方应用信息，用于计算依赖关系；在 dubbo-admin 或 dubbo-monitor 会显示这个名字，方便辨识-->
+    <dubbo:application name="vip-provider" owner="doobo" organization="doobo-1"/>
+    <!--使用 zookeeper 注册中心暴露服务，注意要先开启 zookeeper-->
+    <!--<dubbo:registry address="$XxlConf{dubbo-starter.zkaddress}" username="$XxlConf{dubbo-starter.zkuser}" password="$XxlConf{dubbo-starter.zkpasswd}" />-->
+    <!-- 用dubbo协议在4123端口暴露服务 -->
+    <dubbo:protocol name="dubbo" port="4123"/>
+    <!--设置zookeeper的根节点-->
+    <!--<dubbo:registry group="dubbo" />-->
+    <!--记录失败注册和订阅请求,后台定时重试-->
+    <!--<dubbo:registry check="false" />-->
+    <!--使用 dubbo 协议实现定义好的 api.PermissionService 接口-->
+    <dubbo:service interface="vip.ipav.dubbo.service.DemoService" ref="demoService" protocol="dubbo" />
+    <!--具体实现该接口的 bean-->
+    <bean id="demoService" class="vip.ipav.dubbo.service.impl.DemoServiceImpl"/>
+    <!--使用 dubbo 协议实现定义好的 api.PermissionService 接口-->
+    <dubbo:service interface="vip.ipav.dubbo.service.ConfigService" ref="configService" protocol="dubbo" />
+    <!--具体实现该接口的 bean-->
+    <bean id="configService" class="vip.ipav.dubbo.service.impl.ConfigServiceImpl"/>
+</beans>
