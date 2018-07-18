@@ -16,7 +16,7 @@
     <!--使用 zookeeper 注册中心暴露服务，注意要先开启 zookeeper-->
     <!--<dubbo:registry address="$XxlConf{dubbo-starter.zkaddress}" username="$XxlConf{dubbo-starter.zkuser}" password="$XxlConf{dubbo-starter.zkpasswd}" />-->
     <!-- 用dubbo协议在4123端口暴露服务 -->
-    <dubbo:protocol name="dubbo" port="4123"/>
+    <dubbo:protocol name="dubbo" host="localhost" port="4123" />
     <!--设置zookeeper的根节点-->
     <!--<dubbo:registry group="dubbo" />-->
     <!--记录失败注册和订阅请求,后台定时重试-->
