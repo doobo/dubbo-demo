@@ -48,6 +48,7 @@
                                 <classpath/>
                                 <argument>${mainClass}</argument>
                                 <argument>${port}</argument>
+                                <!--代码main方法，可以通过args[0]等方式获取下面参数-->
                             </arguments>
                         </configuration>
                     </plugin>
